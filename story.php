@@ -7,8 +7,6 @@
 </head>
 <body>
     <div id="night-scene">
-        <div id="snow-container"></div>
-
         <div id="story-overlay">
             <p class="story-text fade-in delay-1">
                 All through the North Pole, it was the night before Christmas...
@@ -17,6 +15,8 @@
                 And Santa tasked one of his elves with a very important job.
             </p>
         </div>
+
+        <img id="go-inside" class="fade-in-button" src="images/reindeer-sticker.png">
     </div>
 
     <script src="js/story.js"></script>

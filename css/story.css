@@ -40,9 +40,31 @@ html, body {
     animation: fadeInText 2s ease-in-out forwards;
 }
 
-@keyframes fadeInText {
-    to { opacity: 1; }
-}
+@keyframes fadeInText { to { opacity: 1; } }
 
 .delay-1 { animation-delay: 1s; }
 .delay-2 { animation-delay: 2s; }
+
+#go-inside {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    width: 80px;
+    cursor: pointer;
+    opacity: 0;
+    transition: transform 0.3s ease-in-out;
+    z-index: 20;
+}
+
+.fade-in-button {
+    animation: buttonFadeIn 1.5s forwards;
+    animation-delay: 3s;
+}
+
+@keyframes buttonFadeIn {
+    to { opacity: 1; }
+}
+
+#go-inside:hover {
+    transform: scale(1.15) rotate(-5deg);
+}
