@@ -1,9 +1,9 @@
 const book = document.getElementById("storybook");
 
 book.addEventListener("click", () => {
-    document.body.classList.add("fade-out");
+    document.body.classList.add("zoom-in");
 
     setTimeout(() => {
         window.location.href = "story.php";
-    }, 800);
+    }, 2200);
 });

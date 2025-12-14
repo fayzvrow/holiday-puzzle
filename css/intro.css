@@ -7,7 +7,7 @@
 body, html {
     width: 100%;
     height: 100%;
-    font-family: Cambria, serif;
+    font-family: 'Fredoka', sans-serif;
     overflow: hidden;
 }
 
@@ -26,11 +26,11 @@ body, html {
 }
 
 #storybook {
-    width: 620px;
-    height: 480px;
+    width: 690px;
+    height: 490px;
     background: linear-gradient(145deg, #7a1f1f, #5c1515);
     border-radius: 10px;
-    box-shadow: 0 20px 40px rgba(0,0,0,0.4), inset 0 0 0 6px #cfa35a;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.4), inset 0 0 0 6px #c7a265;
     position: relative;
     display: flex;
     flex-direction: column;
@@ -57,7 +57,7 @@ body, html {
 .book-title {
     font-size: 2rem;
     text-align: center;
-    color: #f5e6c8;
+    color: #0f5132;
     padding: 0 25px;
     margin-bottom: 20px;
     text-shadow: 1px 1px 3px rgba(0,0,0,0.6);
@@ -95,11 +95,13 @@ body, html {
     transform: rotate(-8deg);
 }
 
-
-.fade-out {
-    animation: fadeOut 0.8s forwards;
+.zoom-in #storybook {
+    transform: scale(1.6);
+    transition: transform 2.2s ease-in-out;
 }
 
-@keyframes fadeOut {
-    to { opacity: 0; }
+.zoom-in {
+    animation: softFade 2.2s forwards;
 }
+
+@keyframes softFade { to { opacity: 0; } }
