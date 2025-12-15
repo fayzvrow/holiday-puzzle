@@ -18,6 +18,10 @@
         </div>
     </div>
 
+    <audio id="bg-music" loop>
+        <source src="audio/christmas.mp3" type="audio/mpeg">
+    </audio>
+
     <script src="js/intro.js"></script>
 </body>
 </html>

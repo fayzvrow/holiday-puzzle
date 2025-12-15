@@ -40,6 +40,10 @@
         <img src="images/tree-sticker.png" class="door-sticker sticker3">
     </div>
 
+    <audio id="bg-music" loop>
+        <source src="audio/christmas.mp3" type="audio/mpeg">
+    </audio>
+
     <script src="js/puzzle.js"></script>
 </body>
 </html>

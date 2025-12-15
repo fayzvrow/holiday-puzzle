@@ -1,5 +1,11 @@
 document.addEventListener("DOMContentLoaded", () => {
 
+    const music = document.getElementById("bg-music");
+    music.volume = 0.4;
+    music.play().catch(() => {
+        document.body.addEventListener("click", () => music.play(), { once: true });
+    });
+
     const puzzleContainer = document.getElementById("fifteen-puzzle");
     const movesCounter = document.getElementById("moves-counter");
     const timerDisplay = document.getElementById("timer");
@@ -145,11 +151,9 @@ document.addEventListener("DOMContentLoaded", () => {
         }
         rewardText.textContent = rewardMsg;
 
-        // Store results in localStorage
         localStorage.setItem('puzzleMoves', moves);
         localStorage.setItem('puzzleTime', `${Math.floor(timeTaken/60)}:${(timeTaken%60).toString().padStart(2,'0')}`);
 
-        // Redirect to workshop ending
         setTimeout(() => {
             window.location.href = "workshop.php?final=true";
         }, 1500);

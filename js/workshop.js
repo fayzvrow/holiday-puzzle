@@ -1,4 +1,11 @@
 document.addEventListener("DOMContentLoaded", () => {
+    
+    const music = document.getElementById("bg-music");
+    music.volume = 0.4;
+    music.play().catch(() => {
+        document.body.addEventListener("click", () => music.play(), { once: true });
+    });
+    
     const urlParams = new URLSearchParams(window.location.search);
     const santa = document.getElementById("santa-btn");
     const dialogueTexts = document.querySelectorAll("#dialogue-bar .dialogue-text");

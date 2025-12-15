@@ -19,6 +19,10 @@
         <img id="go-inside" class="fade-in-button" src="images/reindeer-sticker.png">
     </div>
 
+    <audio id="bg-music" loop>
+        <source src="audio/christmas.mp3" type="audio/mpeg">
+    </audio>
+
     <script src="js/story1.js"></script>
 </body>
 </html>
