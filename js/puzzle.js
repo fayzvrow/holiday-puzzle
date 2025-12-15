@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     let gridSize = parseInt(sizeSelector.value);
     let tiles = [];
-    let emptyIndex = gridSize * gridSize - 1;
+    let emptyIndex;
     let moves = 0;
     let freezeActive = false;
     let hintUses = 3;
@@ -25,7 +25,6 @@ document.addEventListener("DOMContentLoaded", () => {
     function initPuzzle() {
         tiles = [];
         moves = 0;
-        emptyIndex = gridSize * gridSize - 1;
         completed = false;
         freezeActive = false;
         startTime = Date.now();
@@ -33,12 +32,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
         for (let i = 1; i < gridSize * gridSize; i++) tiles.push(i);
         tiles.push(null);
-
         shuffleTiles();
-        renderTiles();
+
         updateMoveCounter();
         updatePowerButtons();
-        updateDoorOpacity();
+        renderTiles();
         startTimer();
     }
 
@@ -47,27 +45,39 @@ document.addEventListener("DOMContentLoaded", () => {
             const j = Math.floor(Math.random() * (i + 1));
             [tiles[i], tiles[j]] = [tiles[j], tiles[i]];
         }
+        emptyIndex = tiles.indexOf(null);
         if (!isSolvable(tiles)) shuffleTiles();
     }
 
     function isSolvable(array) {
         let inv = 0;
-        for (let i = 0; i < array.length - 1; i++) {
+        for (let i = 0; i < array.length; i++) {
             for (let j = i + 1; j < array.length; j++) {
                 if (array[i] && array[j] && array[i] > array[j]) inv++;
             }
         }
-        return inv % 2 === 0;
+        if (gridSize % 2 === 1) return inv % 2 === 0;
+        const emptyRowFromBottom = gridSize - Math.floor(array.indexOf(null) / gridSize);
+        return (emptyRowFromBottom % 2 === 0) ? inv % 2 === 1 : inv % 2 === 0;
     }
 
     function renderTiles() {
         puzzleContainer.innerHTML = '';
-        puzzleContainer.style.gridTemplateColumns = `repeat(${gridSize}, 80px)`;
-        puzzleContainer.style.gridTemplateRows = `repeat(${gridSize}, 80px)`;
+
+        const gap = 6;
+        const maxPuzzleSize = Math.min(window.innerWidth * 0.8, window.innerHeight * 0.6); 
+        const tileSize = Math.floor((maxPuzzleSize - gap * (gridSize - 1)) / gridSize);
+
+        puzzleContainer.style.gridTemplateColumns = `repeat(${gridSize}, ${tileSize}px)`;
+        puzzleContainer.style.gridTemplateRows = `repeat(${gridSize}, ${tileSize}px)`;
 
         tiles.forEach((num, idx) => {
             const tile = document.createElement('div');
             tile.classList.add('tile');
+            tile.style.width = `${tileSize}px`;
+            tile.style.height = `${tileSize}px`;
+            tile.style.fontSize = `${Math.max(tileSize / 2.5, 16)}px`;
+
             if (!num) tile.classList.add('empty');
             else tile.textContent = num;
 
@@ -134,6 +144,34 @@ document.addEventListener("DOMContentLoaded", () => {
             rewardMsg += " Bonus Badge: Quick Solver!";
         }
         rewardText.textContent = rewardMsg;
+
+        // Store results in localStorage
+        localStorage.setItem('puzzleMoves', moves);
+        localStorage.setItem('puzzleTime', `${Math.floor(timeTaken/60)}:${(timeTaken%60).toString().padStart(2,'0')}`);
+
+        // Redirect to workshop ending
+        setTimeout(() => {
+            window.location.href = "workshop.php?final=true";
+        }, 1500);
+
+        sendGameResult();
+    }
+
+    function sendGameResult() {
+        const timeTaken = Math.floor((Date.now() - startTime) / 1000);
+        fetch("save_session.php", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                size: gridSize,
+                moves: moves,
+                time: timeTaken,
+                completed: true
+            })
+        })
+        .then(res => res.json())
+        .then(data => console.log("Saved:", data))
+        .catch(err => console.error("Error saving session:", err));
     }
 
     hintBtn.addEventListener('click', () => {
@@ -159,6 +197,8 @@ document.addEventListener("DOMContentLoaded", () => {
         do { idx1 = Math.floor(Math.random() * (tiles.length - 1)); } while (!tiles[idx1]);
         do { idx2 = Math.floor(Math.random() * (tiles.length - 1)); } while (!tiles[idx2] || idx2 === idx1);
         [tiles[idx1], tiles[idx2]] = [tiles[idx2], tiles[idx1]];
+
+        emptyIndex = tiles.indexOf(null);
         renderTiles();
     });
 
