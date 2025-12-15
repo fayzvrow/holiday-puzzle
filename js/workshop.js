@@ -1,10 +1,31 @@
-const santaBtn = document.getElementById("santa-btn");
+document.addEventListener("DOMContentLoaded", () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const santa = document.getElementById("santa-btn");
+    const dialogueText = document.querySelector("#dialogue-bar .dialogue-text");
 
-santaBtn.addEventListener("click", () => {
-    document.getElementById("workshop-scene").style.opacity = 0;
-    document.getElementById("workshop-scene").style.transition = "opacity 1s ease-in-out";
+    if (urlParams.get('final') === 'true') {
+        santa.classList.add("final");
+        dialogueText.textContent = "Thanks for playing!";
 
-    setTimeout(() => {
-        window.location.href = "puzzle.php";
-    }, 1000);
+        const playBtn = document.getElementById("play-again-btn");
+        const statsBox = document.getElementById("player-stats");
+
+        playBtn.style.display = "block";
+        statsBox.style.display = "block";
+
+        setTimeout(() => {
+            playBtn.style.opacity = 1;
+            statsBox.style.opacity = 1;
+            statsBox.querySelector("#stat-moves").textContent = `Moves: ${localStorage.getItem('puzzleMoves')}`;
+            statsBox.querySelector("#stat-time").textContent = `${localStorage.getItem('puzzleTime')}`;
+        }, 50);
+
+        playBtn.addEventListener("click", () => {
+            window.location.href = "puzzle.php";
+        });
+    } else {
+        santa.addEventListener("click", () => {
+            window.location.href = "puzzle.php";
+        });
+    }
 });

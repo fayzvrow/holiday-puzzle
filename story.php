@@ -19,6 +19,6 @@
         <img id="go-inside" class="fade-in-button" src="images/reindeer-sticker.png">
     </div>
 
-    <script src="js/story.js"></script>
+    <script src="js/story1.js"></script>
 </body>
 </html>

@@ -1,1 +1,126 @@
-puzzle.css
+html, body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    font-family: 'Fredoka', sans-serif;
+    background: #000;
+}
+
+#puzzle-scene {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+#door-backdrop {
+    width: 100%;
+    height: 100%;
+    background: url("../images/unlocked-workshop.png") center/cover no-repeat;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 0;
+    transition: opacity 1s ease-in-out;
+}
+
+#door-bg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    transition: opacity 1s ease-in-out;
+}
+
+#puzzle-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    z-index: 5;
+    background: rgba(255,255,255,0.05);
+    padding: 20px;
+    border-radius: 12px;
+}
+
+#puzzle-title {
+    color: #fff;
+    margin-bottom: 12px;
+    font-size: 2rem;
+}
+
+#puzzle-size {
+    margin-bottom: 20px;
+    padding: 6px 12px;
+    font-size: 1rem;
+}
+
+#fifteen-puzzle {
+    display: grid;
+    gap: 6px;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.tile {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #d4a373;
+    border-radius: 8px;
+    font-size: 1.5rem;
+    color: #fff;
+    font-weight: bold;
+    cursor: pointer;
+    user-select: none;
+    transition: transform 0.2s ease;
+}
+
+.tile.empty {
+    background: transparent;
+    cursor: default;
+}
+
+#moves-counter {
+    color: #fff;
+    margin-top: 10px;
+}
+
+#timer {
+    color: #fff;
+    margin-top: 4px;
+    font-size: 1.1rem;
+}
+
+#powerups {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+}
+
+#powerups button {
+    padding: 8px 14px;
+    font-size: 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+#rewards {
+    margin-top: 12px;
+    color: gold;
+    font-weight: bold;
+}
+
+.door-sticker {
+    position: absolute;
+    width: 60px;
+    z-index: 2;
+}
+
+.sticker1 { top: 10%; left: 15%; }
+.sticker2 { top: 25%; left: 65%; }
+.sticker3 { top: 60%; left: 35%; }
